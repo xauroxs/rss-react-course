@@ -2,6 +2,8 @@ import { Component, FormEvent, ReactNode } from 'react';
 
 import { SearchProps, SearchState } from './search.types';
 
+import { LocalStorage } from '../../constants/local-storage.constants';
+
 class Search extends Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
@@ -11,7 +13,7 @@ class Search extends Component<SearchProps, SearchState> {
   }
 
   state: Readonly<SearchState> = {
-    searchTerm: '',
+    searchTerm: localStorage.getItem(LocalStorage.SearchTerm) || '',
   };
 
   handleChange(e: FormEvent<HTMLInputElement>) {
@@ -20,8 +22,6 @@ class Search extends Component<SearchProps, SearchState> {
 
   handleClick() {
     this.props.handleSearch(this.state.searchTerm);
-
-    this.setState({ searchTerm: '' });
   }
 
   render(): ReactNode {

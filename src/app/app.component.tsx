@@ -7,6 +7,8 @@ import { AppProps, AppState } from './app.types';
 import { PlanetsResponse } from '../star-wars-api/types/star-wars-api.types';
 import { searchPlanets } from '../star-wars-api/utils/planets.utils';
 
+import { LocalStorage } from '../constants/local-storage.constants';
+
 import './app.styles.scss';
 
 class App extends Component<AppProps, AppState> {
@@ -17,7 +19,7 @@ class App extends Component<AppProps, AppState> {
   }
 
   state: Readonly<AppState> = {
-    searchTerm: '',
+    searchTerm: localStorage.getItem(LocalStorage.SearchTerm) || '',
     searchResult: {} as PlanetsResponse,
   };
 
@@ -33,6 +35,8 @@ class App extends Component<AppProps, AppState> {
   }
 
   handleSearch(searchTerm: string) {
+    localStorage.setItem(LocalStorage.SearchTerm, searchTerm);
+
     this.setState({ searchTerm });
   }
 
