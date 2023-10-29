@@ -23,6 +23,12 @@ class App extends Component<AppProps, AppState> {
     searchResult: {} as PlanetsResponse,
   };
 
+  async componentDidMount() {
+    const planetsResponse = await searchPlanets(this.state.searchTerm);
+
+    this.setState({ searchResult: planetsResponse });
+  }
+
   async componentDidUpdate(
     prevProps: Readonly<AppProps>,
     prevState: Readonly<AppState>
