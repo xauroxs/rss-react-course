@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 
 import Search from '../components/search/search.component';
 import PlanetsList from '../components/planets-list/planets-list.component';
+import BuggyButton from '../components/buggy-button/buggy-button.component';
 
 import { AppProps, AppState } from './app.types';
 import { PlanetsResponse } from '../star-wars-api/types/star-wars-api.types';
@@ -16,6 +17,7 @@ class App extends Component<AppProps, AppState> {
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleBreak = this.handleBreak.bind(this);
   }
 
   state: Readonly<AppState> = {
@@ -53,9 +55,14 @@ class App extends Component<AppProps, AppState> {
     this.setState({ searchTerm });
   }
 
+  handleBreak() {
+    throw new Error('Everything was broken!');
+  }
+
   render(): ReactNode {
     return (
       <div>
+        <BuggyButton />
         <div>
           <Search handleSearch={this.handleSearch} />
         </div>
