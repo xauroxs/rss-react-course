@@ -8,10 +8,14 @@ class PlanetsList extends Component<PlanetsListProps> {
   render(): ReactNode {
     return (
       <div>
-        {this.props.planets &&
+        {this.props.isLoading ? (
+          <p>Loading planets...</p>
+        ) : (
+          this.props.planets &&
           this.props.planets.map((planet) => {
             return <PlanetsItem key={planet.name} planet={planet} />;
-          })}
+          })
+        )}
       </div>
     );
   }

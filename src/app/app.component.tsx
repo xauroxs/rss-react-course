@@ -19,6 +19,7 @@ class App extends Component<AppProps, AppState> {
   }
 
   state: Readonly<AppState> = {
+    isLoading: true,
     searchTerm: localStorage.getItem(LocalStorage.SearchTerm) || '',
     searchResult: {} as PlanetsResponse,
   };
@@ -26,7 +27,7 @@ class App extends Component<AppProps, AppState> {
   async componentDidMount() {
     const planetsResponse = await searchPlanets(this.state.searchTerm);
 
-    this.setState({ searchResult: planetsResponse });
+    this.setState({ searchResult: planetsResponse, isLoading: false });
   }
 
   async componentDidUpdate(
@@ -34,9 +35,15 @@ class App extends Component<AppProps, AppState> {
     prevState: Readonly<AppState>
   ) {
     if (this.state.searchTerm !== prevState.searchTerm) {
-      const planetsResponse = await searchPlanets(this.state.searchTerm);
+      this.setState({ isLoading: true }, async () => {
+        const planetsResponse = await searchPlanets(this.state.searchTerm);
 
-      this.setState({ searchResult: planetsResponse });
+        this.setState({ searchResult: planetsResponse });
+      });
+    }
+
+    if (this.state.searchResult !== prevState.searchResult) {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -53,7 +60,10 @@ class App extends Component<AppProps, AppState> {
           <Search handleSearch={this.handleSearch} />
         </div>
         <div>
-          <PlanetsList planets={this.state.searchResult.results} />
+          <PlanetsList
+            planets={this.state.searchResult.results}
+            isLoading={this.state.isLoading}
+          />
         </div>
       </div>
     );
