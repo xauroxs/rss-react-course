@@ -1,9 +1,11 @@
 import { Component, ReactNode } from 'react';
 
 import Search from '../components/search/search.component';
+import PlanetsList from '../components/planets-list/planets-list.component';
 
 import { AppProps, AppState } from './app.types';
 import { PlanetsResponse } from '../star-wars-api/types/star-wars-api.types';
+import { searchPlanets } from '../star-wars-api/utils/planets.utils';
 
 import './app.styles.scss';
 
@@ -19,6 +21,17 @@ class App extends Component<AppProps, AppState> {
     searchResult: {} as PlanetsResponse,
   };
 
+  async componentDidUpdate(
+    prevProps: Readonly<AppProps>,
+    prevState: Readonly<AppState>
+  ) {
+    if (this.state.searchTerm !== prevState.searchTerm) {
+      const planetsResponse = await searchPlanets(this.state.searchTerm);
+
+      this.setState({ searchResult: planetsResponse });
+    }
+  }
+
   handleSearch(searchTerm: string) {
     this.setState({ searchTerm });
   }
@@ -28,6 +41,9 @@ class App extends Component<AppProps, AppState> {
       <div>
         <div>
           <Search handleSearch={this.handleSearch} />
+        </div>
+        <div>
+          <PlanetsList planets={this.state.searchResult.results} />
         </div>
       </div>
     );
