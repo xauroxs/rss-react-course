@@ -2,6 +2,8 @@ import { Component, ReactNode } from 'react';
 
 import { PlanetsItemProps } from './planets-item.types';
 
+import './planets-item.styles.scss';
+
 class PlanetsItem extends Component<PlanetsItemProps> {
   render(): ReactNode {
     const {
@@ -15,7 +17,7 @@ class PlanetsItem extends Component<PlanetsItemProps> {
     } = this.props.planet;
 
     return (
-      <div>
+      <div className="planetsItemContainer">
         <h2>Planet: {name}</h2>
         <p>Diameter: {diameter}</p>
         <p>Rotation period: {rotation_period}</p>
