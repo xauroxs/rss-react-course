@@ -4,6 +4,8 @@ import { SearchProps, SearchState } from './search.types';
 
 import { LocalStorage } from '../../constants/local-storage.constants';
 
+import './search.styles.scss';
+
 class Search extends Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
@@ -26,13 +28,16 @@ class Search extends Component<SearchProps, SearchState> {
 
   render(): ReactNode {
     return (
-      <div>
+      <div className="searchContainer">
         <input
           type="text"
           value={this.state.searchTerm}
           onChange={this.handleChange}
+          className="searchBar"
         />
-        <button onClick={this.handleClick}>Search</button>
+        <button onClick={this.handleClick} className="searchButton">
+          Search
+        </button>
       </div>
     );
   }
