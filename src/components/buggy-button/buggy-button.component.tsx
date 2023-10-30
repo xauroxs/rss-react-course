@@ -2,6 +2,8 @@ import { Component, ReactNode } from 'react';
 
 import { BuggyButtonProps, BuggyButtonState } from './buggy-button.types';
 
+import './buggy-button.styles.scss';
+
 class BuggyButton extends Component<BuggyButtonProps, BuggyButtonState> {
   constructor(props: BuggyButtonProps) {
     super(props);
@@ -21,7 +23,11 @@ class BuggyButton extends Component<BuggyButtonProps, BuggyButtonState> {
     if (this.state.count > 0) {
       throw new Error('Everything was broken!');
     } else {
-      return <button onClick={this.increaseCounter}>Break everything!</button>;
+      return (
+        <button onClick={this.increaseCounter} className="breakButton">
+          Break everything!
+        </button>
+      );
     }
   }
 }
