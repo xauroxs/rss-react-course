@@ -50,9 +50,11 @@ class App extends Component<AppProps, AppState> {
   }
 
   handleSearch(searchTerm: string) {
-    localStorage.setItem(LocalStorage.SearchTerm, searchTerm);
+    const newSearchTerm = searchTerm.trim();
 
-    this.setState({ searchTerm });
+    localStorage.setItem(LocalStorage.SearchTerm, newSearchTerm);
+
+    this.setState({ searchTerm: newSearchTerm });
   }
 
   handleBreak() {
