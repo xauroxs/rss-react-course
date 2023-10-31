@@ -6,6 +6,7 @@ import BuggyButton from '../components/buggy-button/buggy-button.component';
 
 import { AppProps, AppState } from './app.types';
 import { PlanetsResponse } from '../star-wars-api/types/star-wars-api.types';
+
 import { searchPlanets } from '../star-wars-api/utils/planets.utils';
 
 import { LocalStorage } from '../constants/local-storage.constants';
@@ -17,7 +18,6 @@ class App extends Component<AppProps, AppState> {
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleBreak = this.handleBreak.bind(this);
   }
 
   state: Readonly<AppState> = {
@@ -55,10 +55,6 @@ class App extends Component<AppProps, AppState> {
     localStorage.setItem(LocalStorage.SearchTerm, newSearchTerm);
 
     this.setState({ searchTerm: newSearchTerm });
-  }
-
-  handleBreak() {
-    throw new Error('Everything was broken!');
   }
 
   render(): ReactNode {

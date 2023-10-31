@@ -1,4 +1,4 @@
-import { Component, FormEvent, ReactNode } from 'react';
+import { ChangeEvent, Component, ReactNode } from 'react';
 
 import { SearchProps, SearchState } from './search.types';
 
@@ -18,8 +18,8 @@ class Search extends Component<SearchProps, SearchState> {
     searchTerm: localStorage.getItem(LocalStorage.SearchTerm) || '',
   };
 
-  handleChange(e: FormEvent<HTMLInputElement>) {
-    this.setState({ searchTerm: e.currentTarget.value });
+  handleChange(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({ searchTerm: e.target.value });
   }
 
   handleClick() {
