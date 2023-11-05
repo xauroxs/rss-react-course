@@ -1,0 +1,25 @@
+.beersContainer {
+  display: flex;
+}
+
+.beersError {
+  margin: 0 auto;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  gap: 10px;
+
+  font-size: 20px;
+
+  button {
+    padding: 5px 10px;
+
+    font-size: 20px;
+
+    cursor: pointer;
+  }
+}
