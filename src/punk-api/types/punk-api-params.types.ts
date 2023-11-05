@@ -1,5 +1,5 @@
 export type BeerParams = {
   beerName?: string;
-  page?: number;
-  perPage?: number;
+  page?: string;
+  perPage?: string;
 };

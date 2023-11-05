@@ -5,9 +5,16 @@ export const getAllBeers = async (): Promise<BeersResponse> => {
   const url = 'https://api.punkapi.com/v2/beers';
 
   const response = await fetch(url);
-  const beersResponse: BeersResponse = await response.json();
 
-  return beersResponse;
+  if (response.ok) {
+    const beersResponse: BeersResponse = await response.json();
+
+    return beersResponse;
+  }
+
+  const responseError: Error = await response.json();
+
+  throw new Error(responseError.message);
 };
 
 export const getBeersWithParams = async (params: BeerParams) => {
@@ -18,7 +25,14 @@ export const getBeersWithParams = async (params: BeerParams) => {
   }&page=${page || 1}&per_page=${perPage || 25}`;
 
   const response = await fetch(url);
-  const beersResponse: BeersResponse = await response.json();
 
-  return beersResponse;
+  if (response.ok) {
+    const beersResponse: BeersResponse = await response.json();
+
+    return beersResponse;
+  }
+
+  const responseError: Error = await response.json();
+
+  throw new Error(responseError.message);
 };
