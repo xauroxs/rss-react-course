@@ -5,13 +5,15 @@ import { BeersListProps } from './beers-list.types';
 import './beers-list.styles.scss';
 
 const BeersList = (props: BeersListProps) => {
-  const { beers } = props;
+  const { beers, isLoading } = props;
 
   return (
     <div className="beersListContainer">
-      {beers.map((beer) => (
-        <BeersItem key={beer.id} beer={beer} />
-      ))}
+      {isLoading ? (
+        <p className="beersListLoading">Loading beers...</p>
+      ) : (
+        beers.map((beer) => <BeersItem key={beer.id} beer={beer} />)
+      )}
     </div>
   );
 };

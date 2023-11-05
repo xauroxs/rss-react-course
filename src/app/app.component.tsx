@@ -24,10 +24,13 @@ const App = () => {
 
   useEffect(() => {
     if (isLoading) {
-      getBeersWithParams({ beerName: searchTerm }).then((response) => {
-        setSearchResult(response);
-        setIsLoading(false);
-      });
+      getBeersWithParams({ beerName: searchTerm })
+        .then((response) => {
+          setSearchResult(response);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [isLoading, searchTerm]);
 
@@ -43,7 +46,7 @@ const App = () => {
     <div>
       <BuggyButton />
       <Search handleSearch={handleSearch} />
-      <BeersList beers={searchResult} />
+      <BeersList beers={searchResult} isLoading={isLoading} />
     </div>
   );
 };
