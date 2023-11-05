@@ -1,46 +1,39 @@
-import { ChangeEvent, Component, ReactNode } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import { SearchProps, SearchState } from './search.types';
+import { SearchProps } from './search.types';
 
 import { LocalStorage } from '../../constants/local-storage.constants';
 
 import './search.styles.scss';
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
+const Search = (props: SearchProps) => {
+  const { handleSearch } = props;
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  const [searchTerm, setSearchTerm] = useState(
+    localStorage.getItem(LocalStorage.SearchTerm) || ''
+  );
 
-  state: Readonly<SearchState> = {
-    searchTerm: localStorage.getItem(LocalStorage.SearchTerm) || '',
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
-  handleChange(e: ChangeEvent<HTMLInputElement>) {
-    this.setState({ searchTerm: e.target.value });
-  }
+  const handleClick = () => {
+    handleSearch(searchTerm);
+  };
 
-  handleClick() {
-    this.props.handleSearch(this.state.searchTerm);
-  }
-
-  render(): ReactNode {
-    return (
-      <div className="searchContainer">
-        <input
-          type="text"
-          value={this.state.searchTerm}
-          onChange={this.handleChange}
-          className="searchBar"
-        />
-        <button onClick={this.handleClick} className="searchButton">
-          Search
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="searchContainer">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleChange}
+        className="searchBar"
+      />
+      <button onClick={handleClick} className="searchButton">
+        Search
+      </button>
+    </div>
+  );
+};
 
 export default Search;

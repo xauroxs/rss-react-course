@@ -1,35 +1,23 @@
-import { Component, ReactNode } from 'react';
-
-import { BuggyButtonProps, BuggyButtonState } from './buggy-button.types';
+import { useState } from 'react';
 
 import './buggy-button.styles.scss';
 
-class BuggyButton extends Component<BuggyButtonProps, BuggyButtonState> {
-  constructor(props: BuggyButtonProps) {
-    super(props);
+const BuggyButton = () => {
+  const [count, setCount] = useState(0);
 
-    this.increaseCounter = this.increaseCounter.bind(this);
-  }
-
-  state: Readonly<BuggyButtonState> = {
-    count: 0,
+  const increaseCount = () => {
+    setCount((prevCount) => prevCount + 1);
   };
 
-  increaseCounter() {
-    this.setState((prevState) => ({ count: prevState.count + 1 }));
+  if (count > 0) {
+    throw new Error('Everything was broken!');
+  } else {
+    return (
+      <button onClick={increaseCount} className="breakButton">
+        Break everything!
+      </button>
+    );
   }
-
-  render(): ReactNode {
-    if (this.state.count > 0) {
-      throw new Error('Everything was broken!');
-    } else {
-      return (
-        <button onClick={this.increaseCounter} className="breakButton">
-          Break everything!
-        </button>
-      );
-    }
-  }
-}
+};
 
 export default BuggyButton;
