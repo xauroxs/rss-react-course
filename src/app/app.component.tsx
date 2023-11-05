@@ -6,7 +6,7 @@ import BeersList from '../components/beers-list/beers-list.component';
 
 import { LocalStorage } from '../constants/local-storage.constants';
 
-import { getBeersWithParams } from '../punk-api/utils/beers.utils';
+import { getAllBeers, getBeersWithParams } from '../punk-api/utils/beers.utils';
 import { BeersResponse } from '../punk-api/types/punk-api.types';
 
 import './app.styles.scss';
@@ -24,13 +24,21 @@ const App = () => {
 
   useEffect(() => {
     if (isLoading) {
-      getBeersWithParams({ beerName: searchTerm })
-        .then((response) => {
-          setSearchResult(response);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      if (searchTerm === '') {
+        getAllBeers()
+          .then((response) => setSearchResult(response))
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } else {
+        getBeersWithParams({ beerName: searchTerm })
+          .then((response) => {
+            setSearchResult(response);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      }
     }
   }, [isLoading, searchTerm]);
 
