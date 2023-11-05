@@ -1,0 +1,22 @@
+.panelBackground {
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  position: absolute;
+
+  z-index: 0;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.panelContainer {
+  width: 100%;
+
+  position: relative;
+
+  div {
+    z-index: 10;
+  }
+}

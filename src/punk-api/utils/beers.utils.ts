@@ -36,3 +36,19 @@ export const getBeersWithParams = async (params: BeerParams) => {
 
   throw new Error(responseError.message);
 };
+
+export const getBeerById = async (id: string): Promise<BeersResponse> => {
+  const url = `https://api.punkapi.com/v2/beers/${id}`;
+
+  const response = await fetch(url);
+
+  if (response.ok) {
+    const beersResponse: BeersResponse = await response.json();
+
+    return beersResponse;
+  }
+
+  const responseError: Error = await response.json();
+
+  throw new Error(responseError.message);
+};

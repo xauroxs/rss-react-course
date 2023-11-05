@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 import Search from '../search/search.component';
 import BeersList from '../beers-list/beers-list.component';
@@ -108,7 +108,7 @@ const Beers = () => {
   };
 
   return (
-    <div>
+    <div className="beersContainer">
       {error ? (
         <div className="beersError">
           <p>Oops! An error!</p>
@@ -117,15 +117,18 @@ const Beers = () => {
         </div>
       ) : (
         <>
-          <BuggyButton />
-          <Search handleSearch={handleSearch} />
-          <BeersList
-            beers={searchResult}
-            isLoading={isLoading}
-            page={page}
-            handlePage={handlePageChange}
-            handleItemsPerPage={handleItemsPerPageChange}
-          />
+          <div className="beersContent">
+            <BuggyButton />
+            <Search handleSearch={handleSearch} />
+            <BeersList
+              beers={searchResult}
+              isLoading={isLoading}
+              page={page}
+              handlePage={handlePageChange}
+              handleItemsPerPage={handleItemsPerPageChange}
+            />
+          </div>
+          <Outlet />
         </>
       )}
     </div>
