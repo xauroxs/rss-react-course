@@ -85,6 +85,7 @@ const Beers = () => {
 
   const handleItemsPerPageChange = (itemsPerPage: string) => {
     setItemsPerPage(itemsPerPage);
+    setPage('1');
   };
 
   const handlePageChange = (page: string) => {
