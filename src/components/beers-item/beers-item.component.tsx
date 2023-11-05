@@ -13,7 +13,7 @@ const BeersItem = (props: BeersItemProps) => {
     searchParams.set('id', id.toString());
     setSearchParams(searchParams);
 
-    navigate('/beers/details');
+    navigate(`/beers/details?id=${id}`);
   };
 
   return (
