@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
+
+import { SearchContext } from '../../contexts/search.context';
 
 import Search from '../search/search.component';
 import BeersList from '../beers-list/beers-list.component';
@@ -18,10 +20,10 @@ import './beers.styles.scss';
 const Beers = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(
-    localStorage.getItem(LocalStorage.SearchTerm) || ''
-  );
+
   const [searchResult, setSearchResult] = useState<BeersResponse>([]);
   const [page, setPage] = useState(searchParams.get('page') || '1');
   const [itemsPerPage, setItemsPerPage] = useState(
