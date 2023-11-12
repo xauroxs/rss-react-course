@@ -7,13 +7,16 @@ import App from './app/app.component';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
 import { SearchProvider } from './contexts/search.context';
+import { BeersProvider } from './contexts/beers.context';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ErrorBoundary>
         <SearchProvider>
-          <App />
+          <BeersProvider>
+            <App />
+          </BeersProvider>
         </SearchProvider>
       </ErrorBoundary>
     </BrowserRouter>

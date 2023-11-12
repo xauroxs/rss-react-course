@@ -1,3 +1,7 @@
+import { useContext } from 'react';
+
+import { BeersContext } from '../../contexts/beers.context';
+
 import BeersItem from '../beers-item/beers-item.component';
 import Pagination from '../pagination/pagination.component';
 
@@ -6,7 +10,9 @@ import { BeersListProps } from './beers-list.types';
 import './beers-list.styles.scss';
 
 const BeersList = (props: BeersListProps) => {
-  const { beers, isLoading, page, handlePage, handleItemsPerPage } = props;
+  const { isLoading, page, handlePage, handleItemsPerPage } = props;
+
+  const { beers } = useContext(BeersContext);
 
   return (
     <div className="beersListContainer">

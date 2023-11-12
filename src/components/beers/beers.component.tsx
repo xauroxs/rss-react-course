@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
+import { BeersContext } from '../../contexts/beers.context';
 import { SearchContext } from '../../contexts/search.context';
 
 import Search from '../search/search.component';
@@ -13,7 +14,6 @@ import {
   getAllBeers,
   getBeersWithParams,
 } from '../../punk-api/utils/beers.utils';
-import { BeersResponse } from '../../punk-api/types/punk-api.types';
 
 import './beers.styles.scss';
 
@@ -21,10 +21,10 @@ const Beers = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  const { setBeers } = useContext(BeersContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [searchResult, setSearchResult] = useState<BeersResponse>([]);
   const [page, setPage] = useState(searchParams.get('page') || '1');
   const [itemsPerPage, setItemsPerPage] = useState(
     searchParams.get('perPage') || '20'
@@ -49,10 +49,10 @@ const Beers = () => {
     if (isLoading) {
       if (searchTerm === '') {
         getAllBeers()
-          .then((response) => setSearchResult(response))
+          .then((response) => setBeers(response))
           .catch((error) => {
             setError(error);
-            setSearchResult([]);
+            setBeers([]);
           })
           .finally(() => {
             setIsLoading(false);
@@ -64,18 +64,18 @@ const Beers = () => {
           perPage: itemsPerPage,
         })
           .then((response) => {
-            setSearchResult(response);
+            setBeers(response);
           })
           .catch((error) => {
             setError(error);
-            setSearchResult([]);
+            setBeers([]);
           })
           .finally(() => {
             setIsLoading(false);
           });
       }
     }
-  }, [isLoading, searchTerm, page, itemsPerPage]);
+  }, [isLoading, searchTerm, page, itemsPerPage, setBeers]);
 
   const handleSearch = (searchTerm: string) => {
     const newSearchTerm = searchTerm.trim();
@@ -97,7 +97,7 @@ const Beers = () => {
   const handleFix = () => {
     setPage('1');
     setSearchTerm('');
-    setSearchResult([]);
+    setBeers([]);
     setIsLoading(false);
     setItemsPerPage('20');
 
@@ -123,7 +123,6 @@ const Beers = () => {
             <BuggyButton />
             <Search handleSearch={handleSearch} />
             <BeersList
-              beers={searchResult}
               isLoading={isLoading}
               page={page}
               handlePage={handlePageChange}
