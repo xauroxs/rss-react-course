@@ -1,0 +1,31 @@
+.errorBoundaryContainer {
+  min-width: 320px;
+  max-width: 600px;
+
+  margin: 0 auto;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.errorBoundaryDetails {
+  font-size: 20px;
+}
+
+.errorBoundaryButton {
+  font-size: 24px;
+
+  padding: 10px;
+
+  cursor: pointer;
+
+  background-color: rgba(42, 231, 127, 0.952);
+  color: white;
+
+  border: none;
+  outline: none;
+}

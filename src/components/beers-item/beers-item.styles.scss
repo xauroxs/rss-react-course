@@ -1,0 +1,25 @@
+.beersItemContainer {
+  width: 100%;
+  height: 200px;
+
+  margin: 20px 0;
+  padding: 10px;
+
+  display: flex;
+
+  gap: 20px;
+
+  cursor: pointer;
+
+  &:hover {
+    @media screen and (hover: hover) {
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+  }
+}
+
+.beersItemImage {
+  img {
+    height: 100%;
+  }
+}
