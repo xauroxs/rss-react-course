@@ -8,8 +8,6 @@ import Search from '../search/search.component';
 import BeersList from '../beers-list/beers-list.component';
 import BuggyButton from '../buggy-button/buggy-button.component';
 
-import { LocalStorage } from '../../constants/local-storage.constants';
-
 import {
   getAllBeers,
   getBeersWithParams,
@@ -77,14 +75,6 @@ const Beers = () => {
     }
   }, [isLoading, searchTerm, page, itemsPerPage, setBeers]);
 
-  const handleSearch = (searchTerm: string) => {
-    const newSearchTerm = searchTerm.trim();
-
-    localStorage.setItem(LocalStorage.SearchTerm, newSearchTerm);
-
-    setSearchTerm(newSearchTerm);
-  };
-
   const handleItemsPerPageChange = (itemsPerPage: string) => {
     setItemsPerPage(itemsPerPage);
     setPage('1');
@@ -121,7 +111,7 @@ const Beers = () => {
         <>
           <div className="beersContent">
             <BuggyButton />
-            <Search handleSearch={handleSearch} />
+            <Search />
             <BeersList
               isLoading={isLoading}
               page={page}
